@@ -1,0 +1,36 @@
+TN:
+SF:E:\ngoding\Tugas Akhir\coverage-2-flowchart-combined\utils\test.js
+FNF:0
+FNH:0
+DA:1,1
+DA:2,1
+DA:3,1
+DA:4,1
+DA:5,0
+DA:6,0
+DA:7,0
+DA:8,0
+DA:10,0
+LF:9
+LH:4
+BRDA:5,1,0,0
+BRDA:5,1,1,0
+BRDA:7,2,0,0
+BRDA:7,2,1,0
+BRF:4
+BRH:0
+end_of_record
+TN:
+SF:E:\ngoding\Tugas Akhir\coverage-2-flowchart-combined\utils\main.js
+FN:1,yoyo
+FNF:1
+FNH:1
+FNDA:1,yoyo
+DA:1,1
+DA:2,1
+DA:4,1
+LF:3
+LH:3
+BRF:0
+BRH:0
+end_of_record
