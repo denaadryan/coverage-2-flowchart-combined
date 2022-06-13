@@ -124,8 +124,6 @@ function modifyTemplate() {
   let test_template =
     `const` +
     functionName +
-	
-	
     ` = require('./main');
 const assert = require('assert');
 const AssertionError = require('assert').AssertionError;`;
@@ -159,9 +157,15 @@ function generateMainTestCode() {
         }}`;
 
   // fs.writeFileSync(`E:/ngoding/Tugas Akhir/coverage-2-flowchart-back-end/test.js`, test_template + '\n' + test_assert);
+  // fs.writeFileSync(`E:/ngoding/Tugas Akhir/coverage-2-flowchart-combined/utils/test.js`, test_template + '\n' + test_assert);
   fs.writeFileSync(`E:/ngoding/Tugas Akhir/coverage-2-flowchart-combined/utils/test.js`, test_template + '\n' + test_assert);
   // fs.writeFileSync(`E:/ngoding/Tugas Akhir/coverage-2-flowchart-back-end/main.js`, main_original + '\n' + main_template);
   fs.writeFileSync(`E:/ngoding/Tugas Akhir/coverage-2-flowchart-combined/utils/main.js`, main_original + '\n' + main_template);
+}
+
+function modifyFunctionTest() {
+  modifyTemplate();
+  generateMainTestCode();
 }
 
 function fixSVG(svg_path) {
@@ -187,18 +191,25 @@ function validateJSSyntax(function_code, test_code) {
   }
 }
 
+function createCoverageFlowchart(coverage_path, flowchart_path, coverage_flowchart_path) {
+  createCoverageSVG(coverage_path, flowchart_path);
+  fixCoverageSVG(coverage_flowchart_path);
+}
+
 function visualizeCoverage() {
-  modifyTemplate();
-  generateMainTestCode();
+  // modifyTemplate();
+  // generateMainTestCode();
+  modifyFunctionTest();
   generateCoverageAndSVG();
   fixSVG(svg_path);
   createCoverageJson(original_path);
-  createCoverageSVG(coverage_path, fixed_svg);
-  fixCoverageSVG(bad_svg);
+  // createCoverageSVG(coverage_path, fixed_svg);
+  // fixCoverageSVG(bad_svg);
+  createCoverageFlowchart(coverage_path, fixed_svg, bad_svg);
 }
 
 module.exports = {
-  saveSource,
+  saveSourceCode,
   visualizeCoverage,
   validateJSSyntax,
 };

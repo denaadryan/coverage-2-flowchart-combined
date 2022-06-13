@@ -1,4 +1,4 @@
-const { visualizeCoverage, saveSource, validateJSSyntax } = require('./utils');
+const { visualizeCoverage, saveSourceCode, validateJSSyntax } = require('./utils');
 
 const express = require('express');
 const app = express();
@@ -20,7 +20,7 @@ app.post('/coverage', (req, res) => {
   // sourceCodeValidation();
   try {
     validateJSSyntax(req.body.mainSrc, req.body.testCase);
-    saveSource(req.body.mainSrc, req.body.testCase);
+    saveSourceCode(req.body.mainSrc, req.body.testCase);
     visualizeCoverage();
     res.redirect('/coverage');
   } catch (e) {
