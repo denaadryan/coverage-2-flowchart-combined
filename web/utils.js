@@ -12,7 +12,7 @@ const { createSVGWindow } = require('svgdom');
 const { SVG, registerWindow } = require('@svgdotjs/svg.js');
 // registerWindow(svgWindow, svgDocument);
 
-const original_path = 'E:/ngoding/Tugas Akhir/coverage-2-flowchart-combined/coverage/coverage.json';
+const original_coverage_path = 'E:/ngoding/Tugas Akhir/coverage-2-flowchart-combined/coverage/coverage.json';
 const coverage_path = 'public/coverage/coverage.json';
 // const svg_path = 'E:/ngoding/Tugas Akhir/coverage-2-flowchart-combined/utils/main.js.svg';
 const svg_path = 'E:/ngoding/Tugas Akhir/coverage-2-flowchart-combined/utils/main_original.js.svg';
@@ -49,7 +49,7 @@ const createCoverageJson = (original_coverage_path) => {
 Membuat visualisasi coverage dalam format SVG
 */
 
-//bug malah pake file lama
+//cari elemen for pada loop, kalo ada tambah 1 block dengan value yang sama dengan for
 const createCoverageSVG = (JSONpath, SVGpath) => {
   const svgWindow = createSVGWindow();
   const svgDocument = svgWindow.document;
@@ -62,21 +62,79 @@ const createCoverageSVG = (JSONpath, SVGpath) => {
 
   const coverage = loadJSON(JSONpath);
   const coverageArr = Object.values(coverage.coverage);
-  const totalBlock = coverageArr.length;
+  let totalBlock = coverageArr.length;
   const shapes = ['rect', 'polygon', 'path'];
   var blocks = canvas.find('g');
+  let forExist = 0;
+
+  // console.log(blocks);
+  let coverage_index = 0;
   for (let i = 0; i < totalBlock; i++) {
-    var color = coverageArr[i] > 0 ? '#0f0' : '#f00';
+    coverage_index = i - forExist;
+    // console.log(coverage_index);
+    // if (forExist) {
+    //   forExist = false;
+    //   coverageIndex = ;
+    // }
+    var color = coverageArr[coverage_index] > 0 ? '#0f0' : '#f00';
+
+    //looking for 'for' loop
+    let forLoop = blocks[i].find('text').text();
+    // if (forLoop[2] == 'while')
+    if (forLoop[1] == 'for') {
+      forExist++;
+      totalBlock++;
+      // console.log(forExist);
+    }
+
+    //looking for for loop
+
     for (let j = 0; j < shapes.length; j++) {
       var shape = blocks[i].findOne(shapes[j]);
+
+      // console.log(blocks[i]);
+      //kalo ada bentuknya, dikasih warna
       if (shape) shape.css({ fill: color });
+      // console.log(i);
+      // gak bisa break, harus cek semua shape
+      // break;
     }
   }
 
   const firstchild = canvas.findOne('svg').attr('xmlns:svgjs', 'http://svgjs.dev/svgjs');
+  // fs.writeFileSync('public/coverage/bad-flowchart-forloop.svg', canvas.svg());
   fs.writeFileSync('public/coverage/bad-flowchart.svg', canvas.svg());
+
   // console.log('Flowchart has been created');
 };
+
+// const createCoverageSVG = (JSONpath, SVGpath) => {
+//   const svgWindow = createSVGWindow();
+//   const svgDocument = svgWindow.document;
+//   registerWindow(svgWindow, svgDocument);
+
+//   let canvas = SVG(svgDocument.documentElement);
+
+//   const file = fs.readFileSync(SVGpath, 'utf-8');
+//   canvas.svg(file);
+
+//   const coverage = loadJSON(JSONpath);
+//   const coverageArr = Object.values(coverage.coverage);
+//   const totalBlock = coverageArr.length;
+//   const shapes = ['rect', 'polygon', 'path'];
+//   var blocks = canvas.find('g');
+//   for (let i = 0; i < totalBlock; i++) {
+//     var color = coverageArr[i] > 0 ? '#0f0' : '#f00';
+//     for (let j = 0; j < shapes.length; j++) {
+//       var shape = blocks[i].findOne(shapes[j]);
+//       if (shape) shape.css({ fill: color });
+//     }
+//   }
+
+//   const firstchild = canvas.findOne('svg').attr('xmlns:svgjs', 'http://svgjs.dev/svgjs');
+//   // fs.writeFileSync('public/coverage/bad-flowchart.svg', canvas.svg());
+//   // console.log('Flowchart has been created');
+// };
 
 /*
 Memperbaiki format SVG yang rusak
@@ -193,6 +251,7 @@ function validateJSSyntax(function_code, test_code) {
 
 function createCoverageFlowchart(coverage_path, flowchart_path, coverage_flowchart_path) {
   createCoverageSVG(coverage_path, flowchart_path);
+  // checkForLoop(coverage_path, flowchart_path);
   fixCoverageSVG(coverage_flowchart_path);
 }
 
@@ -202,7 +261,7 @@ function visualizeCoverage() {
   modifyFunctionTest();
   generateCoverageAndSVG();
   fixSVG(svg_path);
-  createCoverageJson(original_path);
+  createCoverageJson(original_coverage_path);
   // createCoverageSVG(coverage_path, fixed_svg);
   // fixCoverageSVG(bad_svg);
   createCoverageFlowchart(coverage_path, fixed_svg, bad_svg);
@@ -216,3 +275,7 @@ module.exports = {
 
 // createCoverageSVG(coverage_path, fixed_svg);
 // fixCoverageSVG(bad_svg);
+
+// let forLoopSVG = 'public/coverage/bad-flowchart-forloop.svg';
+// checkForLoop(coverage_path, fixed_svg);
+// fixCoverageSVG(forLoopSVG);
