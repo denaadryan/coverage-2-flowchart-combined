@@ -9,7 +9,8 @@ app.use(express.static('public'));
 app.use(express.urlencoded());
 
 app.get('/', (req, res) => {
-  res.sendFile('./index.html', { root: __dirname });
+  // res.sendFile('./index.html', { root: __dirname });
+  res.sendFile('./codemirror.html', { root: __dirname });
 });
 
 app.get('/coverage', (req, res) => {
