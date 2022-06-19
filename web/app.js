@@ -9,8 +9,8 @@ app.use(express.static('public'));
 app.use(express.urlencoded());
 
 app.get('/', (req, res) => {
-  // res.sendFile('./index.html', { root: __dirname });
-  res.sendFile('./codemirror.html', { root: __dirname });
+  res.sendFile('./index.html', { root: __dirname });
+  // res.sendFile('./codemirror.html', { root: __dirname });
 });
 
 app.get('/coverage', (req, res) => {
@@ -19,14 +19,22 @@ app.get('/coverage', (req, res) => {
 
 app.post('/coverage', (req, res) => {
   // sourceCodeValidation();
+  let error;
   try {
-    validateJSSyntax(req.body.mainSrc, req.body.testCase);
+    error = validateJSSyntax(req.body.mainSrc, req.body.testCase);
     saveSourceCode(req.body.mainSrc, req.body.testCase);
     visualizeCoverage();
     res.redirect('/coverage');
   } catch (e) {
     // res.redirect('/');
-    res.send('<script>alert("SYNTAX ERROR : Please input the correct javascript source code . . ."); window.location.href = "/"; </script>');
+    // res.send('<script>alert("SYNTAX ERROR : Please input the correct javascript source code . . ."); window.location.href = "/"; </script>');
+
+    console.log(error);
+    if (error == 'function_code') {
+      res.send('<script>alert("SYNTAX ERROR : Please input the correct javascript unit function code . . ."); window.location.href = "/"; </script>');
+    } else {
+      res.send('<script>alert("SYNTAX ERROR : Please input the correct javascript unit test code . . ."); window.location.href = "/"; </script>');
+    }
     // res.send('<script>alert(e + " SYNTAX ERROR : Please input the correct javascript source code . . ."); window.location.href = "/"; </script>');
   }
 });

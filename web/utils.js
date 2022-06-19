@@ -236,17 +236,21 @@ function fixSVG(svg_path) {
 
 function validateJSSyntax(function_code, test_code) {
   // const JS_code = fs.readFileSync(script_path, 'utf-8');
+  let error;
 
   try {
     // const unit_function = new vm.Script(function_path);
     // const unit_test = new vm.Script(test_path);
+    error = 'function_code';
     const unit_function = new vm.Script(function_code);
+    error = 'test_code';
     const unit_test = new vm.Script(test_code);
   } catch (e) {
     // console.log(e);
     // console.log('Please input the correct javascript source code . . .');
     // alert('Please input the correct javascript source code . . .');
   }
+  return error;
 }
 
 function createCoverageFlowchart(coverage_path, flowchart_path, coverage_flowchart_path) {
@@ -279,3 +283,8 @@ module.exports = {
 // let forLoopSVG = 'public/coverage/bad-flowchart-forloop.svg';
 // checkForLoop(coverage_path, fixed_svg);
 // fixCoverageSVG(forLoopSVG);
+
+// let code = 'funct qdowqidqw(odqw = ();';
+
+// console.log(validateJSSyntax(code, code));
+// console.log('oi');
