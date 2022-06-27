@@ -1,0 +1,243 @@
+// TEST CASE 1 LOOP
+
+function convertToBinary(x) {
+  let bin = 0;
+  let rem,
+    i = 1,
+    step = 1;
+  while (x != 0) {
+    rem = x % 2;
+    // console.log(
+    //     `Step ${step++}: ${x}/2, Remainder = ${rem}, Quotient = ${parseInt(x/2)}`
+    // );
+    x = parseInt(x / 2);
+    bin = bin + rem * i;
+    i = i * 10;
+  }
+  //   console.log(`Binary: ${bin}`);
+  return bin;
+}
+
+// console.log(convertToBinary(5));
+
+// TEST CASE 2 LOOP + NESTED IF WHILE
+function isPrime(n) {
+  let c = 0;
+  let i = 1;
+  while (i < n) {
+    if (n % i == 0) {
+      c++;
+      if (c > 1) {
+        return false;
+      }
+    }
+    i++;
+  }
+
+  if (c == 1) {
+    return true;
+  }
+  return false;
+}
+
+// TEST CASE 3 SWITCH CASE
+// Javascript program to convert Roman
+// Numerals to Numberspublic
+// This function returns value of
+// a Roman symbol
+function value(r) {
+  //   if (r == 'I') return 1;
+  //   if (r == 'V') return 5;
+  //   if (r == 'X') return 10;
+  //   if (r == 'L') return 50;
+  //   if (r == 'C') return 100;
+  //   if (r == 'D') return 500;
+  //   if (r == 'M') return 1000;
+  //   return -1;
+
+  switch (r) {
+    case 'I':
+      return 1;
+      break;
+    case 'V':
+      return 5;
+      break;
+    case 'X':
+      return 10;
+      break;
+    case 'L':
+      return 50;
+      break;
+    case 'C':
+      return 100;
+      break;
+    case 'D':
+      return 500;
+      break;
+    case 'M':
+      return 1000;
+    default:
+      return -1;
+  }
+}
+
+// Finds decimal value of a given
+// romal numeral
+function romanToDecimal(str) {
+  // Initialize result
+  var res = 0;
+
+  for (i = 0; i < str.length; i++) {
+    // Getting value of symbol s[i]
+    // var s1 = value(str.charAt(i));
+    var s1;
+    switch (str.charAt(i)) {
+      case 'I':
+        s1 = 1;
+        break;
+      case 'V':
+        s1 = 5;
+        break;
+      case 'X':
+        s1 = 10;
+        break;
+      case 'L':
+        s1 = 50;
+        break;
+      case 'C':
+        s1 = 100;
+        break;
+      case 'D':
+        s1 = 500;
+        break;
+      case 'M':
+        s1 = 1000;
+      default:
+        s1 = -1;
+    }
+
+    // Getting value of symbol s[i+1]
+    if (i + 1 < str.length) {
+      //   var s2 = value(str.charAt(i + 1));
+      var s2;
+      switch (str.charAt(i + 1)) {
+        case 'I':
+          s2 = 1;
+          break;
+        case 'V':
+          s2 = 5;
+          break;
+        case 'X':
+          s2 = 10;
+          break;
+        case 'L':
+          s2 = 50;
+          break;
+        case 'C':
+          s2 = 100;
+          break;
+        case 'D':
+          s2 = 500;
+          break;
+        case 'M':
+          s2 = 1000;
+        default:
+          s2 = -1;
+      }
+
+      // Comparing both values
+      if (s1 >= s2) {
+        // Value of current symbol
+        // is greater or equalto
+        // the next symbol
+        res = res + s1;
+      } else {
+        // Value of current symbol is
+        // less than the next symbol
+        res = res + s2 - s1;
+        i++;
+      }
+    } else {
+      res = res + s1;
+    }
+  }
+  return res;
+}
+
+// console.log(romanToDecimal('XII'));
+
+// TEST CASE 4 FOR
+function isPrime(n) {
+  let c = 0;
+  for (let i = 1; i < n; i++) {
+    if (n % i == 0) {
+      c++;
+      if (c > 1) {
+        return false;
+      }
+    }
+  }
+  if (c == 1) {
+    return true;
+  }
+  return false;
+}
+
+// TEST CASE 5 if then else
+function oddOrEven(x) {
+  if (x % 2 == 0) {
+    return 'even';
+  } else {
+    return 'odd';
+  }
+}
+
+// console.log(oddOrEven(7));
+
+// TEST CASE 6 try catch
+function errorFunction() {
+  try {
+    console.log(error);
+  } catch (e) {
+    console.log('Error Type' + e);
+  }
+}
+
+// TEST CASE 7 do while
+
+function factorial(number) {
+  if (number < 0) {
+    console.log('Error! Factorial for negative number does not exist.');
+  }
+
+  // if number is 0
+  else if (number === 0) {
+    console.log(`The factorial of ${number} is 1.`);
+  }
+
+  // if number is positive
+  else {
+    let fact = 1;
+    // for (i = 1; i <= number; i++) {
+    //   fact *= i;
+    // }
+    let i = 1;
+    do {
+      fact *= i;
+      i++;
+    } while (i <= number);
+
+    console.log(`The factorial of ${number} is ${fact}.`);
+  }
+}
+
+// factorial(5);
+
+// TEST CASE 8 SEKUENSIAL
+function celsiusToFahrenheit(celsius) {
+  var fahrenheit = (celsius * 9) / 5 + 32;
+
+  return fahrenheit;
+}
+
+console.log(celsiusToFahrenheit(40));

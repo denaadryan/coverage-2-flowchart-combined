@@ -40,8 +40,15 @@ const createPathCoverage = (path) => {
 };
 
 const createCoverageJson = (original_coverage_path) => {
-  const pathCoverage = createPathCoverage(original_coverage_path);
-  fs.writeFileSync('public/coverage/coverage.json', JSON.stringify(pathCoverage));
+  const coverages = loadJSON(original_coverage_path);
+  const coverage_key = Object.keys(coverages);
+
+  let statementCoverageJson = {};
+  statementCoverageJson['coverage'] = coverages[coverage_key[1]].s;
+  // return pathCoverageJson;
+
+  // const pathCoverage = createPathCoverage(original_coverage_path);
+  fs.writeFileSync('public/coverage/coverage.json', JSON.stringify(statementCoverageJson));
   // console.log('coverage is extracted');
 };
 
