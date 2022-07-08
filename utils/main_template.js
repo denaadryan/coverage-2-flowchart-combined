@@ -1,1 +1,1 @@
-module.exports = isPrime;
+module.exports = decimalToBinary;

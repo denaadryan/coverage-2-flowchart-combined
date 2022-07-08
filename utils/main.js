@@ -1,19 +1,15 @@
-function isPrime(n) {
-  let c = 0;
+function decimalToBinary(x) {
+  let bin = 0;
+  let rem = 0;
   let i = 1;
-  while (i < n) {
-    if (n % i == 0) {
-      c++;
-      if (c > 1) {
-        return false;
-      }
-    }
-    i++;
-  }
+  let step = 1;
+  while (x != 0) {
+    rem = x % 2;
 
-  if (c == 1) {
-    return true;
+    x = parseInt(x / 2);
+    bin = bin + rem * i;
+    i = i * 10;
   }
-  return false;
+  return bin;
 }
-module.exports = isPrime;
+module.exports = decimalToBinary;

@@ -9,12 +9,6 @@
 
     <title>Coverage To Flowchart</title>
 
-    <script type="text/javascript">
-      function localFunction() {
-        console.log('aku local');
-      }
-    </script>
-    <!-- <script type="text/javascript" src="hello.js"></script> -->
     <script type="text/javascript" src="utils.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -25,8 +19,32 @@
         <a class="navbar-brand" href="/">Coverage2Flowchart</a>
       </div>
     </nav>
-    <!-- jangan lupa pake svg yang fixed -->
-    <!-- jangan pake titik  -->
+
     <img src="/coverage/coverage-flowchart.svg" alt="coverage" />
+
+    <!-- informasi + - untuk if/condition -->
+    <div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Symbol</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>+</td>
+            <td>Jalur yang dilewati jika memenuhi kondisi (true)</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>-</td>
+            <td>Jalur yang dilewati jika memenuhi tidak memenuhi kondisi (false)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </body>
 </html>
